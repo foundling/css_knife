@@ -20,15 +20,6 @@
 
 int main(int argc, char *argv[]) 
 {
-  int c;
-	int state = OUT;
-  char key_buffer[MAX_KEY + 1];
-  char property_buffer[MAX_PROPERTY + 1];
-  key_buffer[MAX_KEY] = 0;
-  property_buffer[MAX_PROPERTY] = 0;
-  int pbc = 0, kbc = 0;
-
-
   // arg check 
 	if (argc != 2) 
 	{
@@ -44,16 +35,7 @@ int main(int argc, char *argv[])
 	  printf("fp is null");
 		exit(1);
 	}
-
-  while ( (c=getc(fp)) != EOF)
-	{
-	  struct style_block * _style_block = parse_key_and_property(c, &state, key_buffer,property_buffer, &pbc, &kbc);
-		if (_style_block) 
-		{
-		  printf("%s\n",_style_block->selector);
-		}
-  }
+  
+	parse_key_property(fp);
   return 0;
 }
-
-

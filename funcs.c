@@ -3,42 +3,61 @@
 #include  <string.h>
 #include	"header.h"
 
-struct style_block* parse_key_and_property(int c,int * state, char * key_buffer, char * property_buffer, int * pbc, int * kbc)
+char property_buffer[MAX_PROPERTY + 1];
+char key_buffer[MAX_KEY + 1];
+
+static struct table
 {
+  struct style_block * next;
+} _table;
 
-  // store key name
-  if ( (*state == OUT) && (c != '{') && (c != ' ') && (c != '\n') && (c != '\t') )
-  {
-      key_buffer[(*kbc)++] = c;
-  }
-  // switch to IN
-  else if ( (*state == OUT) && (c == '{') )
-  {
-      *state = IN;
-  }
-  // store the property data
-  else if ( (*state == IN) && (c != '}') && (c != '\n') )
-  {
-    property_buffer[(*pbc)++] = c;
-  }
-  // exit - this is where the printing and buffer clear happens
-  else if ( (*state == IN) && (c == '}') )
-  {
-    *state = OUT;
 
-    // create style_block struct on heap
-    // copy key_field into its selector field
+static struct style_block
+{
+  char * selector;
+  struct property * property_list;
+} _style_block;
 
-    // clear buffers, reset counts
-		printf("%s\n",key_buffer);
-		struct style_block * _style_block = malloc(sizeof(struct style_block));
-		strcpy(_style_block->selector,key_buffer);
-    memset(key_buffer,0,sizeof(&key_buffer));
-    memset(property_buffer,0,sizeof(&key_buffer));
-    key_buffer[MAX_KEY] = 0;
-    property_buffer[MAX_PROPERTY] = 0;
-    *pbc = *kbc = 0;
-    return _style_block;
+// linked list of properties
+static struct property
+{
+  struct property * next;
+  char * name;
+  char * value; // wrong?
+} _property;
+
+int parse_key_property(FILE * fp)
+{
+  int c;
+  int state = OUT;
+  int pbc = 0, kbc = 0;
+
+  while ( (c=getc(fp)) != EOF)
+  {
+		// accumulate key name while outside of code block
+		if ( (state == OUT) && (c != '{') )
+		{
+			key_buffer[kbc++] = c;
+		}
+		// switch to IN on opening brace
+		else if ( (state == OUT) && (c == '{') )
+		{
+			state = IN;
+		}
+		// store the property data in buf while not closing brace
+		else if ( (state == IN) && (c != '}') && (c != '\n') )
+		{
+			property_buffer[pbc++] = c;
+		}
+		// exit process key property data on closing brace
+		else if ( (state == IN) && (c == '}') )
+		{
+			state = OUT;
+      printf("%s\n",key_buffer);
+      pbc = 0, kbc = 0;
+      memset(key_buffer,0,sizeof(key_buffer));
+      memset(property_buffer,0,sizeof(key_buffer));
+		}
   }
-	return NULL;
+  return 0;
 }
