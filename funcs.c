@@ -6,34 +6,43 @@
 char property_buffer[MAX_PROPERTY + 1];
 char key_buffer[MAX_KEY + 1];
 
-static struct table
+struct table
 {
   struct style_block * next;
-} _table;
+};
 
 
-static struct style_block
+struct style_block
 {
-  char * selector;
+  char selector[MAX_KEY + 1];
   struct property * property_list;
-} _style_block;
+};
 
 // linked list of properties
-static struct property
+struct property
 {
   struct property * next;
-  char * name;
-  char * value; // wrong?
-} _property;
+  char name[MAX_PROP_NAME];
+  char value[MAX_PROP_VALUE];
+};
 
 int parse_key_property(FILE * fp)
 {
   int c;
   int state = OUT;
   int pbc = 0, kbc = 0;
-
-  while ( (c=getc(fp)) != EOF)
+  struct table Table = {0};
+  //struct style_block *style_block_ptr = malloc(sizeof(struct style_block));
+  
+	while ( (c=getc(fp)) != EOF)
   {
+		// create style_block on heap
+    struct style_block *style_block_ptr = malloc(sizeof(struct style_block));
+		// create property_list on heap
+		struct property * property_ptr = malloc(sizeof(struct property));
+		// style_block gets the address of property list just allocated
+		style_block_ptr->property_list = property_ptr; 
+
 		// accumulate key name while outside of code block
 		if ( (state == OUT) && (c != '{') )
 		{
@@ -53,7 +62,14 @@ int parse_key_property(FILE * fp)
 		else if ( (state == IN) && (c == '}') )
 		{
 			state = OUT;
-      printf("%s\n",key_buffer);
+      //printf("%s\n",key_buffer);
+			// copy key_buffer into style_block_ptr's selector field
+      strcpy(style_block_ptr->selector,key_buffer);
+      strcpy(style_block_ptr->property_list->name,property_buffer);
+			printf("%s\n",style_block_ptr->selector);
+			printf("%s\n",style_block_ptr->property_list->name);
+
+      //printf("%s\n",style_block_ptr->selector);
       pbc = 0, kbc = 0;
       memset(key_buffer,0,sizeof(key_buffer));
       memset(property_buffer,0,sizeof(key_buffer));
