@@ -1,0 +1,291 @@
+/* bg light blue: rgb(206,240,240) */
+/* bg light gray: rgb(210,210,210) */
+/* code light yellow: rgb(255,253,217) */
+/* keyword highlight red: rgb(204,0,0) */
+
+html 
+{
+  box-sizing: border-box;
+  font-family: "Lato", sans-serif;
+}
+*, *:before, *:after 
+{
+	  box-sizing: inherit;
+}
+a:link
+{
+    color:              black;
+    text-decoration:    none;
+
+}
+
+a:visited
+{
+    color:              black;
+    text-decoration:    none;
+
+}
+
+a:hover
+{
+    text-decoration:    none;
+    color:              rgb(204,0,0);
+
+}
+
+a:active
+{
+    color:              black;
+    text-decoration:    none;
+}
+
+body
+{
+  background: rgb(206,240,240);
+	margin-bottom: 10px;
+}
+
+button 
+{
+  display: inline;
+	height: 100%;
+  width: 2em;
+  position: relative;
+  background: white;
+	border: 1px black solid;
+}
+
+button:hover
+{
+  background: rgb(210,210,210);
+}
+
+button:focus, input:focus
+{
+    outline: none;
+}
+
+.code-block
+{
+  font-family: Lato, sans-serif;
+  background: rgb(255,253,217);
+  padding: 25px;
+  margin: 0 auto;
+  width: 50%;
+  min-width: 400px;
+  position: relative;
+}
+
+
+
+form
+{
+  height: 35px;
+	margin-bottom: 15px;
+}
+
+ul
+{
+  list-style-type: none;
+}
+
+nav
+{
+  position: fixed;
+	top:0;
+  font-weight: 400;  
+  padding: 20px;
+  width: 95%;
+	z-index:300;
+}
+
+
+header
+{
+  font-weight:700;
+}
+
+.hidden 
+{
+  display: none;
+}
+
+.highlight
+{
+    color: rgb(204,0,0);
+}
+
+h2 
+{
+  text-align: center;
+	font-size: 48px;
+}
+
+
+input
+{
+    display: inline;
+		margin: 0;
+		padding: 5px;
+    height: 100%;
+    background: rgb(255,253,217);
+		border: 1px black solid;
+}
+
+li
+{
+    margin-left: 5px;
+}
+li:first-child
+{
+    display: none;
+}
+
+.mobile
+{
+    display: none;
+}
+
+
+p
+{
+  font-weight: 300;
+	max-width: 65%;
+	margin: 0 auto;
+  margin-top: 20px;
+  margin-bottom: 20px;
+}
+
+section
+{
+  margin-top: 180px;
+}
+
+
+.gray 
+{
+  background: rgb(210,210,210);
+}
+
+ul
+{
+  list-style-type: none;
+}
+
+.menu-toggle
+{
+  font-size: 4em;
+	color: rgb(255,253,217);
+	display: inline-block;
+	text-align: center;
+  width: 100%;
+	text-shadow: 0.02em 0.02em 0.04em black;
+}
+
+.menu-toggle:hover
+{
+	text-shadow: 0.02em 0.02em .001em black;
+}
+
+@media(max-width: 795px) {
+  body
+  {
+	  padding: 0;
+	  margin: 0;
+	}
+	.code-block
+	{
+	  width: 100%;
+		padding-left: 100px;
+		min-width:350px;
+	}
+	.mobile
+	{
+	  display: inline-block;
+	}
+
+	.desktop
+	{
+	}
+  
+	form 
+	{
+		margin: 0 auto;
+	  width: 50%;
+		background: white;
+	}
+
+	h2
+	{
+	  font-size: 48px;
+		background: white;
+	}
+	input
+	{
+	  width: 100%;
+    background: white;
+		border: none;
+	}
+
+  input:hover, li:hover
+	{
+	}
+
+	li:first-child
+	{
+	  display: block;
+    text-align: left;	
+		padding-left: 20px;
+		padding-bottom:25px;
+		font-size: 2em;
+	}
+  li:not(:first-child)
+  {
+    background: white;
+    margin: 0 auto;
+    padding:25px; 
+  }
+	.mobile-hide
+	{
+	  display: none;
+	}
+  nav
+  {
+    width: 100%;
+    margin: 0;
+		padding: 0px;
+		background: none;
+  }
+	p 
+	{
+	  max-width: 90%;
+    margin: 0 auto;
+    margin-top: 20px;
+    margin-bottom: 20px;
+
+  }
+
+  section
+  {
+    margin-top: 80px;
+  }
+
+	ul
+	{
+	  text-align: center;
+		margin-bottom: 30px;
+	}
+  .white
+	{
+	  background:white;
+	}
+}
+
+@media(max-width: 400px) {
+
+  .code-block 
+	{
+    padding-left: 20px;
+	}
+
+}
