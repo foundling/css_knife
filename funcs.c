@@ -30,6 +30,7 @@ void parse_key_and_property(int c,int * state, char * key_buffer, char * propert
     // copy key_field into its selector field
 
     // clear buffers, reset counts
+		printf("%s\n",key_buffer);
     memset(key_buffer,0,sizeof(&key_buffer));
     memset(property_buffer,0,sizeof(&key_buffer));
     key_buffer[MAX_KEY] = 0;
