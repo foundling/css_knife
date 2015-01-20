@@ -6,16 +6,16 @@
 *
 */
 
-// make a temp buffer for word and css values 
+// make a temp buffer for word and css propertys 
 // create a key - property struct
-// property is also a struct: name - value;
+// property is also a struct: name - property;
 // malloc struct space for key and properties when you 
 // exit reading the properties into the array
 
 struct property 
 {
   char * name;
-	char * value;
+	char * property;
 } _property;
 
 struct selector 
@@ -28,8 +28,10 @@ struct selector
 #include	<stdlib.h>
 #include	<string.h>
 
-#define   OUT    0 
-#define   IN     1 
+#define   OUT        0 
+#define   IN         1 
+#define   MAX_KEY    500
+#define		MAX_PROPERTY  1000
 
 // get filename
 int main(int argc, char *argv[]) 
@@ -51,46 +53,48 @@ int main(int argc, char *argv[])
 
   int c;
 	int state = OUT;
-	char key_buffer[1001];
-	key_buffer[1000] = 0;
-	int kbc = 0;
-	char value_buffer[5001];
-	value_buffer[5000] = 0;
-	int vbc = 0;
+	char key_buffer[MAX_KEY + 1];
+	key_buffer[MAX_KEY] = 0;
+	char property_buffer[MAX_PROPERTY + 1];
+	property_buffer[MAX_PROPERTY] = 0;
+	int pbc = 0, kbc = 0;
 
+  //html{ width: 400px; background: red;}
+	//body{ width: 400px; background: red;}
   
 	// two states: out of attribute block and in one
   while ( (c=getc(fp)) != EOF )
 	{
-	  if ( (state == OUT) && (c != '{') && (c != ' '))
+	  // store key name
+	  if ( (state == OUT) && (c != '{') && (c != ' ') && (c != '\n') && (c != '\t') )
 		{
-					key_buffer[kbc++] = c;
+				key_buffer[kbc++] = c;
 		}
+		// switch to IN
 	  else if ( (state == OUT) && (c == '{') )
 		{
 			  state = IN;
 		}
-		else if ( (state == IN) && (c != '}') )
+		// store the property data
+		else if ( (state == IN) && (c != '}') && (c != ' ') && (c != '\n') && (c != '\t') )
 		{
-		    value_buffer[vbc++] = c;
+		    property_buffer[pbc++] = c;
 		}
+		// exit - this is where the printing and buffer clear happens
 		else if ( (state == IN) && (c == '}') )
 		{
 			   state = OUT;
-				 // value buffer gets parsed into colon separated data
-				 // it must be able to handle not having a value
+				 // property buffer gets parsed into colon separated data
+				 // it must be able to handle not having a property
 				 // or property name
-				 printf("%s\n\n",key_buffer);
-				 /*render(key_buffer,value_buffer);*/
-				 printf("VALUE BUFFER:%s\n",value_buffer);
-		}
-		else
-		{
-		  printf("error!\n");
-		//	printf("key: %s\n,value: %s\nstate: %d\n", key_buffer, value_buffer, state);
-			exit(1);
+				 printf("%s\n",key_buffer);
+				 printf("%s\n\n",property_buffer);
+				 memset(key_buffer,0,sizeof(key_buffer));
+				 memset(property_buffer,0,sizeof(key_buffer));
+				 pbc = kbc = 0;
 		}
 
 	}
+	fclose(fp);
   return 0;
 }

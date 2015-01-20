@@ -1,1 +1,2 @@
 html{ width: 400px; background: red;}
+*,*:before,*:after{box-sizing:inherit;}
