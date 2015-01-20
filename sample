@@ -1,2 +1,4 @@
-html{ width: 400px; background: red;}
-*,*:before,*:after{box-sizing:inherit;}
+html 
+{
+  box-sizing: border-box;
+}
