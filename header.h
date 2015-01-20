@@ -23,5 +23,5 @@ struct property
   char * value; // wrong?
 } _property;
 
+struct style_block* parse_key_and_property(int c,int * state, char * key_buffer, char * property_buffer, int * pbc, int * kbc);
 
-void parse_key_and_property(int c,int * state, char * key_buffer, char * property_buffer, struct style_block **style_block_ptr, int * pbc, int * kbc);

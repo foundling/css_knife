@@ -47,8 +47,11 @@ int main(int argc, char *argv[])
 
   while ( (c=getc(fp)) != EOF)
 	{
-	  struct style_block * style_block_ptr = malloc(sizeof(struct style_block));
-	  parse_key_and_property(c, &state, key_buffer,property_buffer,&style_block_ptr, &pbc, &kbc);
+	  struct style_block * _style_block = parse_key_and_property(c, &state, key_buffer,property_buffer, &pbc, &kbc);
+		if (_style_block) 
+		{
+		  printf("%s\n",_style_block->selector);
+		}
   }
   return 0;
 }

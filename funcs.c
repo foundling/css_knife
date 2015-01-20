@@ -3,7 +3,7 @@
 #include  <string.h>
 #include	"header.h"
 
-void parse_key_and_property(int c,int * state, char * key_buffer, char * property_buffer, struct style_block **style_block_ptr, int * pbc, int * kbc)
+struct style_block* parse_key_and_property(int c,int * state, char * key_buffer, char * property_buffer, int * pbc, int * kbc)
 {
 
   // store key name
@@ -31,11 +31,14 @@ void parse_key_and_property(int c,int * state, char * key_buffer, char * propert
 
     // clear buffers, reset counts
 		printf("%s\n",key_buffer);
+		struct style_block * _style_block = malloc(sizeof(struct style_block));
+		strcpy(_style_block->selector,key_buffer);
     memset(key_buffer,0,sizeof(&key_buffer));
     memset(property_buffer,0,sizeof(&key_buffer));
     key_buffer[MAX_KEY] = 0;
     property_buffer[MAX_PROPERTY] = 0;
     *pbc = *kbc = 0;
+    return _style_block;
   }
-
+	return NULL;
 }
