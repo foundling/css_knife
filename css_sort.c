@@ -20,10 +20,15 @@
 #define   IN            1 
 #define   MAX_KEY       500
 #define   MAX_PROPERTY  1000
-void parse_key_and_property(FILE * css_file, char * property_buffer, char * key_buffer);
 
 // each style block has a selector string
 // and it points to a linked list of properties
+
+struct table
+{
+  struct style_block * next;
+} _table;
+
 
 struct style_block 
 {
@@ -40,25 +45,19 @@ struct property
 } _property; 
 
 
+void parse_key_and_property(int c,int * state, char * key_buffer, char * property_buffer, struct style_block * style_block_ptr, int * pbc, int * kbc);
 
 // get filename
 int main(int argc, char *argv[]) 
 {
+  int c;
+	int state = OUT;
   char key_buffer[MAX_KEY + 1];
-  key_buffer[MAX_KEY] = 0;
   char property_buffer[MAX_PROPERTY + 1];
+  key_buffer[MAX_KEY] = 0;
   property_buffer[MAX_PROPERTY] = 0;
+  int pbc = 0, kbc = 0;
 
-
-  _property.next = NULL;
-	_property.name = "width:";
-	_property.value = "100%;"; 
-  _style_block.selector = "html";
-	_style_block.property_list = &_property;
-
-  printf("%s\n",_style_block.selector);
-  printf("%s\n",_style_block.property_list->name);
-  printf("%s\n",_style_block.property_list->value);
 
   // arg check 
 	if (argc != 2) 
@@ -76,46 +75,62 @@ int main(int argc, char *argv[])
 		exit(1);
 	}
 
-  parse_key_and_property(fp,key_buffer,property_buffer);
-
+  while ( (c=getc(fp)) != EOF)
+	{
+	  struct style_block * style_block_ptr = malloc(sizeof(struct style_block));
+	  parse_key_and_property(c, &state, key_buffer,property_buffer,style_block_ptr, &pbc, &kbc);
+  }
   return 0;
 }
 
-void parse_key_and_property(FILE * css_file, char * property_buffer, char * key_buffer)
+void parse_key_and_property(int c,int * state, char * key_buffer, char * property_buffer, struct style_block * style_block_ptr, int * pbc, int * kbc)
 {
-  int c;
-  int state = OUT;
-  int pbc = 0, kbc = 0;
-  while ( (c=getc(css_file)) != EOF )
-  {
-    // store key name
-    if ( (state == OUT) && (c != '{') && (c != ' ') && (c != '\n') && (c != '\t') )
-    {
-        key_buffer[kbc++] = c;
-    }
-    // switch to IN
-    else if ( (state == OUT) && (c == '{') )
-    {
-        state = IN;
-    }
-    // store the property data
-    else if ( (state == IN) && (c != '}') && (c != '\n') )
-    {
-        property_buffer[pbc++] = c;
-    }
-    // exit - this is where the printing and buffer clear happens
-    else if ( (state == IN) && (c == '}') )
-    {
-         state = OUT;
-         // property buffer gets parsed into colon separated data
-         // it must be able to handle not having a property
-         // or property name
-//         printf("%s\n",key_buffer);
-//         printf("%s\n\n",property_buffer);
-         memset(key_buffer,0,sizeof(&key_buffer));
-         memset(property_buffer,0,sizeof(&key_buffer));
-         pbc = kbc = 0;
-    }
 
-  } 
+  printf("%c",c);
+
+  // store key name
+  if ( (*state == OUT) && (c != '{') && (c != ' ') && (c != '\n') && (c != '\t') )
+  {
+      key_buffer[(*kbc)++] = c;
+  }
+  // switch to IN
+  else if ( (*state == OUT) && (c == '{') )
+  {
+      *state = IN;
+  }
+  // store the property data
+  else if ( (*state == IN) && (c != '}') && (c != '\n') )
+  {
+    property_buffer[(*pbc)++] = c;
+  }
+  // exit - this is where the printing and buffer clear happens
+  else if ( (*state == IN) && (c == '}') )
+  {
+    *state = OUT;
+
+		// create style_block struct on heap
+		// copy key_field into its selector field
+
+    //printf("%s",key_buffer);
+		// clear buffers, reset counts
+    memset(key_buffer,0,sizeof(&key_buffer));
+    memset(property_buffer,0,sizeof(&key_buffer));
+    *pbc = *kbc = 0;
+  }
+
 }
+/*
+struct table
+{
+  struct style_block * next;
+	} _table;
+
+
+	struct style_block
+	{
+	  char * selector;
+	  struct property * property_list;
+	} _style_block;
+
+*/
+
