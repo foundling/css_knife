@@ -36,6 +36,6 @@ int main(int argc, char *argv[])
 		exit(1);
 	}
   
-	parse_key_property(fp);
+	parse_rule_block(fp);
   return 0;
 }

@@ -20,12 +20,17 @@ struct property_list
 
 struct rule_block
 {
+  // the css rule to match
   char key[MAX_KEY + 1];
+
+	// pointer to a property_list where you attach new properties
   struct property_list * property_list_head; // for linked lists of property_lists
+
+	// link to the next css rule
   struct rule_block * next_rule_block; // for linked list of style blocks
 };
 
 
-int parse_key_property(FILE * fp);
-int parse_name_value(char * property_buffer, struct property_list * property_list_ptr);
+int parse_rule_block(FILE * fp);
+int parse_property(char * property_block, struct rule_block * new_rule_blockp);
 
