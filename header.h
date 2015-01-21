@@ -13,7 +13,7 @@
 
 struct property_list
 {
-  struct property_list * next_property; // for linked list of properties
+  struct property_list * next; // for linked list of properties
   char name[MAX_PROP_NAME];
   char value[MAX_PROP_VALUE];
 };
@@ -27,7 +27,7 @@ struct rule_block
   struct property_list * property_list_head; // for linked lists of property_lists
 
 	// link to the next css rule
-  struct rule_block * next_rule_block; // for linked list of style blocks
+  struct rule_block * next; // for linked list of style blocks
 };
 
 
