@@ -5,6 +5,7 @@
 
 char property_buffer[MAX_PROPERTY + 1];
 char key_buffer[MAX_KEY + 1];
+void print_sorted_rules(struct rnode * RNODE_HEAD);
 
 
 int parse_rule(FILE * fp)
@@ -55,6 +56,7 @@ int parse_rule(FILE * fp)
 		}
   }
   // test block
+  /*
   struct rnode * cur = RNODE.next;
   while (cur)
   {
@@ -63,11 +65,14 @@ int parse_rule(FILE * fp)
 		while(cur2)
 		{
 			printf("%s\n",cur2->name);
+			printf("%s\n",cur2->value);
 		  cur2 = cur2->next;
 		}
 		cur = cur->next;
   }
 
+  */
+  print_sorted_rules(&RNODE);
   return 0;
 }
 
@@ -120,4 +125,19 @@ int parse_property(char * property_block, struct rnode * NEW_RNODE)
   return 0;
 }
 
-
+void print_sorted_rules(struct rnode * RNODE_HEAD)
+{
+  struct rnode * cur = RNODE_HEAD->next;
+  while (cur)
+  {
+    printf("%s\n",cur->key);
+    struct pnode * cur2 = cur->phead.next;
+    while(cur2)
+    {
+      printf("%s\n",cur2->name);
+      printf("%s\n",cur2->value);
+      cur2 = cur2->next;
+    }
+    cur = cur->next;
+  } 
+}

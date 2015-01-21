@@ -3,19 +3,13 @@
 *  
 *  usage: cssort <css file> [ > output_file]
 *  purpose: sorts your css blocks alphabetically
-*  todo: make a web service
-*  todo: sort property blocks, too
+*  todo: implement as a web service
+*  todo: sort property blocks
 *  todo: add minifier
 *  todo: keep a count of '{' and '}'s so you can treat nested tags
 *        (media queries) as a separate group.
 *        Sort groups by nested level.
 */
-
-// make a temp buffer for word and css propertys 
-// create a key - property struct
-// property is also a struct: name - property;
-// malloc struct space for key and properties when you 
-// exit reading the properties into the array
 
 #include  <stdio.h>
 #include  <stdlib.h>

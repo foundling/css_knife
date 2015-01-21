@@ -11,6 +11,7 @@
 // each style node has a key (aka html), a next pointert(to next style block), and an attached linked list of properties
 // each property node inthe property node list is a key and a value
 
+// css property node
 struct pnode
 {
   char name[MAX_PROP_NAME];
@@ -18,6 +19,7 @@ struct pnode
   struct pnode * next; 
 };
 
+// css rule node
 struct rnode
 {
   char key[MAX_KEY + 1];
