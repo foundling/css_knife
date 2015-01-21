@@ -2,6 +2,9 @@
 *  CSS Alphabetizer
 *  
 *  usage: cssort <css file> [ > output_file]
+*  purpose: sorts your css blocks alphabetically
+*  todo: sort property blocks, too
+*  todo: add minifier
 *  todo: keep a count of '{' and '}'s so you can treat nested tags
 *        (media queries) as a separate group.
 *        Sort groups by nested level.

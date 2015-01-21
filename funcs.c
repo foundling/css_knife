@@ -21,7 +21,7 @@ int parse_rule_block(FILE * fp)
 		// pointer to a container for a style block. init to null
 
 		// accumulate key name while outside of code block
-		if ( (state == OUT) && (c != '{') && (c != '\n'))
+		if ( (state == OUT) && (c != '{') )
 		{
 			key_buffer[kbc++] = c;
     }
