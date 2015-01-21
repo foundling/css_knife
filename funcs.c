@@ -50,6 +50,7 @@ int parse_rule_block(FILE * fp)
       
       // now take new rule block and append the parsed property stuff to it as linked list
 			parse_property(property_buffer,new_rule_block);
+			printf("%s\n",new_rule_block->property_list_head->name);
       pbc = 0, kbc = 0;
       memset(key_buffer,0,sizeof(key_buffer));
       memset(property_buffer,0,sizeof(property_buffer));
@@ -101,8 +102,6 @@ int parse_property(char * property_block, struct rule_block * new_rule_blockp)
 			_property_list.next_property = new_rule_blockp->property_list_head;
 			// new rule block's head points to property_list address
 			new_rule_blockp->property_list_head = &_property_list; 
-			printf("%s\n",_property_list.name);
-			printf("%s\n",_property_list.value);
 
       // reset buffers, counts, change state
 			vc = nc = 0;

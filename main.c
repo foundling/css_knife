@@ -3,6 +3,7 @@
 *  
 *  usage: cssort <css file> [ > output_file]
 *  purpose: sorts your css blocks alphabetically
+*  todo: make a web service
 *  todo: sort property blocks, too
 *  todo: add minifier
 *  todo: keep a count of '{' and '}'s so you can treat nested tags
