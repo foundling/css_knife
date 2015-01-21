@@ -33,4 +33,3 @@ struct rule_block
 
 int parse_rule_block(FILE * fp);
 int parse_property(char * property_block, struct rule_block * new_rule_blockp);
-

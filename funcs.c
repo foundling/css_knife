@@ -92,7 +92,7 @@ int parse_property(char * property_block, struct rule_block * new_rule_blockp)
 			strncpy(_property_list.value, value, MAX_PROP_VALUE);
 
 			// give the pointer on rule block the address for list above
-      rule_block->property_list_head &_property_list;
+      rule_block->property_list_head = &_property_list;
 			// create property_list
 			// 
 			printf("%s",value);
