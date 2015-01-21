@@ -11,25 +11,20 @@
 // each style node has a key (aka html), a next pointert(to next style block), and an attached linked list of properties
 // each property node inthe property node list is a key and a value
 
-struct property_list
+struct pnode
 {
-  struct property_list * next; // for linked list of properties
   char name[MAX_PROP_NAME];
   char value[MAX_PROP_VALUE];
+  struct pnode * next; 
 };
 
-struct rule_block
+struct rnode
 {
-  // the css rule to match
   char key[MAX_KEY + 1];
-
-	// pointer to a property_list where you attach new properties
-  struct property_list * property_list_head; // for linked lists of property_lists
-
-	// link to the next css rule
-  struct rule_block * next; // for linked list of style blocks
+  struct pnode phead; 
+  struct rnode * next; 
 };
 
 
-int parse_rule_block(FILE * fp);
-int parse_property(char * property_block, struct rule_block * new_rule_blockp);
+int parse_rule(FILE * fp);
+int parse_property(char * property_block, struct rnode * new_rnode);

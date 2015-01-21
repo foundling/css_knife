@@ -7,15 +7,16 @@ char property_buffer[MAX_PROPERTY + 1];
 char key_buffer[MAX_KEY + 1];
 
 
-int parse_rule_block(FILE * fp)
+int parse_rule(FILE * fp)
 {
   int c;
   int state = OUT;
   int pbc = 0, kbc = 0;
 
-	// pointer is head of rule_blocks
-	struct rule_block * rule_block_head;
-  
+  struct rnode RNODE = {{0}};
+  struct pnode PNODE = {{0},{0}};
+	RNODE.phead = PNODE;
+
 	while ( (c=getc(fp)) != EOF)
   {
 		// pointer to a container for a style block. init to null
@@ -38,27 +39,20 @@ int parse_rule_block(FILE * fp)
 		// exit process key property data on closing brace
 		else if ( (state == IN) && (c == '}') )
 		{
-			// get pointer to new rule_block struct
-		  struct rule_block * new_rule_block_p = malloc(sizeof(struct rule_block));
-			// point new rule block p to address that head ptr had - puts it at front
-			new_rule_block_p->next = rule_block_head;
-			// point head to new rule_block
-			rule_block_head = new_rule_block_p;
-			// copy key into new_rule_block
-			strncpy(new_rule_block_p->key,key_buffer,MAX_KEY);
-		//	printf("%s\n",new_rule_block_p->key);
-      
-      // now take new rule block and append the parsed property stuff to it as linked list
-			parse_property(property_buffer,new_rule_block_p);
-			//printf("%s\n",new_rule_block_p->property_list_head->name);
+			struct rnode * NEW_RNODE = malloc(sizeof(struct rnode));
+			strncpy(NEW_RNODE->key,key_buffer,MAX_KEY);
+			NEW_RNODE->next = RNODE.next;
+			RNODE.next = NEW_RNODE;
+			printf("%p\n%p\n",NEW_RNODE->next,RNODE.next);
 
+
+			// reset, clean up
       pbc = 0, kbc = 0;
       memset(key_buffer,0,sizeof(key_buffer));
       memset(property_buffer,0,sizeof(property_buffer));
 			state = OUT;
 		}
   }
-		printf("%s\n",rule_block_head->property_list_head);
 
 /*
 	struct rule_block * current_rule_p = rule_block_head->next;
@@ -71,7 +65,7 @@ int parse_rule_block(FILE * fp)
 }
 
 // parses property and appends linked list of properties to newly created rule block
-int parse_property(char * property_block, struct rule_block * new_rule_block_p) 
+int parse_property(char * property_block, struct rnode * new_rnode)
 {
 
   int i;
@@ -103,16 +97,6 @@ int parse_property(char * property_block, struct rule_block * new_rule_block_p)
 		else if ( (state == VALUE) && (property_block[i] == ';') )
 		{
 			
-			// create new property list node
-			struct property_list _property_list = {0,{0},{0}};
-			// copy data into it
-			strncpy(_property_list.name, name, MAX_PROP_NAME);
-			strncpy(_property_list.value, value, MAX_PROP_VALUE);
-
-			// new property list gets a next value of what new rule block pointer's head pointed to
-			_property_list.next = new_rule_block_p->property_list_head;
-			// new rule block's head points to property_list address
-			new_rule_block_p->property_list_head = &_property_list; 
 
       // reset buffers, counts, change state
 			vc = nc = 0;

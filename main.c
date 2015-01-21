@@ -40,6 +40,6 @@ int main(int argc, char *argv[])
 		exit(1);
 	}
   
-	parse_rule_block(fp);
+	parse_rule(fp);
   return 0;
 }
