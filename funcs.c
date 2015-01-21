@@ -43,29 +43,36 @@ int parse_rule(FILE * fp)
 			strncpy(NEW_RNODE->key,key_buffer,MAX_KEY);
 			NEW_RNODE->next = RNODE.next;
 			RNODE.next = NEW_RNODE;
-			printf("%p\n%p\n",NEW_RNODE->next,RNODE.next);
-
+      
+      parse_property(property_buffer,NEW_RNODE);
 
 			// reset, clean up
       pbc = 0, kbc = 0;
       memset(key_buffer,0,sizeof(key_buffer));
       memset(property_buffer,0,sizeof(property_buffer));
 			state = OUT;
+			
 		}
   }
+  // test block
+  struct rnode * cur = RNODE.next;
+  while (cur)
+  {
+    printf("%s\n",cur->key);
+		struct pnode * cur2 = cur->phead.next;
+		while(cur2)
+		{
+			printf("%s\n",cur2->name);
+		  cur2 = cur2->next;
+		}
+		cur = cur->next;
+  }
 
-/*
-	struct rule_block * current_rule_p = rule_block_head->next;
-	while (current_rule_p != NULL)
-	{
-	  printf("%s\n",current_rule_p->key);	
-	}
-	*/
   return 0;
 }
 
 // parses property and appends linked list of properties to newly created rule block
-int parse_property(char * property_block, struct rnode * new_rnode)
+int parse_property(char * property_block, struct rnode * NEW_RNODE)
 {
 
   int i;
@@ -96,8 +103,13 @@ int parse_property(char * property_block, struct rnode * new_rnode)
 		// end of value area, process name,value pair
 		else if ( (state == VALUE) && (property_block[i] == ';') )
 		{
-			
 
+      struct pnode * NEW_PNODE = malloc(sizeof(struct pnode));			
+			strncpy(NEW_PNODE->name,name,MAX_PROP_NAME);
+			strncpy(NEW_PNODE->value,value,MAX_PROP_VALUE);
+      
+			NEW_PNODE->next = NEW_RNODE->phead.next;
+			NEW_RNODE->phead.next = NEW_PNODE;
       // reset buffers, counts, change state
 			vc = nc = 0;
       memset(name,0,sizeof(name));
