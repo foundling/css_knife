@@ -141,3 +141,8 @@ void print_sorted_rules(struct rnode * RNODE_HEAD)
     cur = cur->next;
   } 
 }
+
+int insert_node()
+{
+  
+}
