@@ -1,17 +1,23 @@
-#### CSS Sort
+#### CSS Sort (aka Knife)
 
-A utility that sorts your CSS file and sends it to stdout. No in-place sorting supported.
+A command-line utility that takes a CSS file via stdin and sends a filtered/sorted version to stdout. No in-place sorting of css files is supported!
  
-**Usage**: cssort [ -f target_file_name] [ -o output_file ] [-Z ] 
+**Usage**: cssort [-cZ] [ -d N ] [ -f target_file_name] [ -o output_file ] 
 
+-c, include comments
+-d N, debug level
+  1 - validate CSS (default)
+  2 - scan for duplicate entries
 -f, target filename
--Z, include leading non-alphabetic like '.' and '#' in sort procedure
+-m, minimize css
+-M, merge duplicate entries within same block level
+-Z, include leading non-alphabetic characters like '.' and '#' in sort procedure
 
-features in consideration:
+features under consideration:
 
 + Implementing it as a web service
-+ Sort Properties Switch
++ Structural requirements for the inclusion of comments
 + Minifier Switch
-+ Nested Block logic
-  I.E., Keep a count of brace nesting level so you can treat nested tags (.e.g. media query style rules) as a separate group if needed.
++ Nested block logic
+  I.E., Keep a count of brace nesting level so you can treat nested tags (.e.g. media query style rules) as a separate sort group if needed.
 
