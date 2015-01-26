@@ -6,11 +6,11 @@ A command-line utility that takes a CSS file via stdin, alphabetizes it, and sen
 
 -D, find duplicate selectors
 
+-f, target filename
+
 -o, send stdout to a file. cannot be the name of the source file
 
 -p, sort properties only, do not sort css rules
-
--f, target filename
 
 -Z, include leading non-alphabetic characters like '.' and '#' in sort procedure
 
