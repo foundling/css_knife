@@ -1,7 +1,5 @@
 #### knife (in progress)
 
-```bash
-
 A command-line utility that takes a CSS file via stdin and sends a filtered/sorted version to stdout or to an output file that is not the same as the source file. No in-place sorting of css files is supported!
  
 **Usage**: knife [-DZ ] [ -f target_file_name] [ -o output_file ] 
@@ -16,4 +14,3 @@ features under consideration:
 + Structural requirements for the inclusion of comments
 + Nested block logic
   I.E., Keep a count of brace nesting level so you can treat nested tags (.e.g. media query style rules) as a separate sort group if needed.
-```
