@@ -1,4 +1,4 @@
-#### knife (in progress)
+#### knife v 0.0
 
 A command-line utility that takes a CSS file via stdin and sends a filtered/sorted version to stdout or to an output file that is not the same as the source file. No in-place sorting of css files is supported!
  
