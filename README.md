@@ -2,9 +2,9 @@
 
 A command-line utility that takes a CSS file via stdin, alphabetizes it, and sends the newly sorted file to stdout or to an output file that is not the same as the source file. Sorry, but no in-place sorting of css files is supported at this time.
 
-Also, comments are not supported, so this thing is pretty much useless, so don't use it.  /warning
+Also, comments won't be supported until I can decide on the restrictions I have to place on you, so this thing is pretty much useless and you shouldn't use it.
 
-The end goal, however, is to be of industrial-strength use.
+The end goal, however, is industrial strength.
  
  
  
