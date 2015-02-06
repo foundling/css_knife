@@ -1,4 +1,4 @@
-#### knife v 0.0
+#### knife v -0.3
 
 A command-line utility that takes a CSS file via stdin, alphabetizes it, and sends the newly sorted file to stdout or to an output file that is not the same as the source file. Sorry, but no in-place sorting of css files is supported at this time.
 
