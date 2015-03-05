@@ -21,8 +21,9 @@ if len(sys.argv) < 2:
 parser = tinycss.make_parser()
 ss = parser.parse_stylesheet_file(sys.argv[1])
 if ss.errors:
-  print 'stylesheet has errors'
-  sys.exit(1)
+  print '\n'.join('** your stylesheet has errors **',ss.errors,'\n')
+  print ss.errors
+  print '\n'
 
 # copy what I need from the ss object into dict below
 
