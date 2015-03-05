@@ -2,7 +2,7 @@
 
     USAGE: knife [ -sdSDonZ ] [ <FILENAME> ]  [ -o <OUTPUT_FILE> ] 
 
-    default: stats, equiv to -S
+    When no arguments are passed, the default flag is -S, output stats
 
     -s, sort css selectors
     -d, sort by declarations
