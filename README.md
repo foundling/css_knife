@@ -12,4 +12,6 @@
     -D, find duplicate selectors
     -o, write stdout to a file. cannot be the name of the source file
     -n, do not sort css declarations
-    -Z, include leading non-alphabetic characters like '.' and '#' in sort procedure.  This option is positional and         applies to the next specified -r or -d flag.  If none is present, 
+    -Z, include leading non-alphabetic characters like '.' and '#' in sort procedure.  
+    
+    This option is positional and         applies to the next specified -r or -d flag.  If none is present, 
