@@ -1,6 +1,6 @@
     CSS Knife: industrial-strength CSS sorting.
 
-    USAGE: knife [ -sdSDonZ ] <FILENAME> [ -o output_file ] 
+    USAGE: knife [ -sdSDonZ ] [ <FILENAME> ]  [ -o output_file ] 
 
     default: stats, equiv to -S
 
