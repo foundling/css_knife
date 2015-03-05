@@ -2,7 +2,7 @@
 # coding: utf-8
 
 # NOTE TO AUTHOR: remember to run . /data/python/env/bin/activate 
-
+  
 # 
 #   CSS Knife - sorts your CSS
 #
@@ -21,12 +21,10 @@ if len(sys.argv) < 2:
 parser = tinycss.make_parser()
 ss = parser.parse_stylesheet_file(sys.argv[1])
 if ss.errors:
-  print '\n'.join(['** your stylesheet has errors **',ss.errors,''])
-  print ss.errors
-  print '\n'
-
+  print '\n'.join(['** your stylesheet has errors **'] + [i.message for i in ss.errors] + ['*******************'])
+  
 # copy what I need from the ss object into dict below
-
+  
 #  rule dict example
 #  {'selector':'li p',
 #     'declarations' : 
@@ -35,7 +33,7 @@ if ss.errors:
 #               {'width': '400px'}
 #           ] 
 #  }
-
+  
 # first copy out of parsed ss object
 my_rule_list = []
 for rule in ss.rules:
