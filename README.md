@@ -11,7 +11,6 @@
     -S, outputs stats (errors, duplicates)
     -D, find duplicate selectors
     -o, write stdout to a file. cannot be the name of the source file
-    -n, do not sort css declarations
     -Z, include leading non-alphabetic characters like '.' and '#' in sort procedure.  
-    
-    This option is positional and         applies to the next specified -r or -d flag.  If none is present, 
+    This option is positional and must come before a -r or -d flag.  If no -r or -d flag
+    follows the -Z flag, it is ignored.
