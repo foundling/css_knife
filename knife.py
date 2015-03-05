@@ -4,7 +4,7 @@
 # NOTE TO AUTHOR: remember to run . /data/python/env/bin/activate 
 
 # 
-#   CSS SORT - sorts your CSS
+#   CSS Knife - sorts your CSS
 #
 #   hard dependencies: tinycss
 #
