@@ -1,5 +1,3 @@
-    knife v -0.3
-
     CSS Knife: industrial-strength CSS sorting.
 
     USAGE: knife [ -sdSDonZ ] <FILENAME> [ -o output_file ] 
