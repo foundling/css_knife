@@ -21,7 +21,7 @@ if len(sys.argv) < 2:
 parser = tinycss.make_parser()
 ss = parser.parse_stylesheet_file(sys.argv[1])
 if ss.errors:
-  print '\n'.join('** your stylesheet has errors **',ss.errors,'\n')
+  print '\n'.join(['** your stylesheet has errors **',ss.errors,''])
   print ss.errors
   print '\n'
 
