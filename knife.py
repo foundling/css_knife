@@ -1,57 +1,27 @@
 #!/usr/bin/env python
 # coding: utf-8
 
-# 
-#   CSS Knife - sorts your CSS
-#
-#   hard dependencies: tinycss
-#
+''' 
+  CSS Knife Sorts your CSS
+'''
+
 
 import sys
 
 import tinycss
 
-if len(sys.argv) < 2:
-  print 'no file argument'
-  sys.exit(1)
+def ignore_leading_dot(item):
+    if item['selector'].startswith('.'):
+        return item['selector'][1:]
+    else:
+        return item['selector']
 
-# parse stylesheet file into object form
-parser = tinycss.make_parser()
-ss = parser.parse_stylesheet_file(sys.argv[1])
-if ss.errors:
-  print '\n'.join(['** your stylesheet has errors **'] + [i.message for i in ss.errors] + ['*******************'])
-  
-# copy what I need from the ss object into dict below
-  
-#  rule dict example
-#  {'selector':'li p',
-#     'declarations' : 
-#           [
-#               {'background':'red'},
-#               {'width': '400px'}
-#           ] 
-#  }
-  
-# first copy out of parsed ss object
-my_rule_list = []
-for rule in ss.rules:
-  d = dict()
-  d['selector'] = rule.selector.as_css()
-  d['declarations'] = []
-  for dec in rule.declarations:
-    # appending declaration {'name':'value'}
-    d['declarations'].append({dec.name : dec.value.as_css()})
-  my_rule_list.append(d)
 
-# copy rule list 
-rules_sorted_by_declaration = my_rule_list[:]
-
-# sort list of declarations in-place
-for rule in rules_sorted_by_declaration:
-  rule['declarations'].sort(key=lambda x: x.keys())
-
-# sort rules, too
-rules_sorted_by_selector_and_declaration = sorted(rules_sorted_by_declaration, key=lambda x: x['selector'])
+def style_errors(errors):
+  if errors:
+    print 'Your stylesheet has the following errors:'
+    for e in errors:
+      print '+ {}'.format(e)
 
 def print_sorted_list(r_list):
   for rule in r_list:
@@ -61,4 +31,40 @@ def print_sorted_list(r_list):
         print '    %s: %s;' % (k,v)
     print '}\n'
 
-print_sorted_list(rules_sorted_by_selector_and_declaration)
+if len(sys.argv) < 2:
+  print 'no file argument'
+  sys.exit(1)
+else:
+  css_file = sys.argv[1]
+
+try:
+  parser = tinycss.make_parser()
+  ss = parser.parse_stylesheet_file(css_file)
+except IOError:
+  print 'Could not open file %' % (css_file)
+  sys.exit(1)
+
+
+if ss.errors:
+  style_errors(ss.errors)
+  sys.exit(1)
+
+app = {}
+app['rules'] = []
+
+for rule in ss.rules:
+  d = dict()
+  d['selector'] = rule.selector.as_css()
+  d['declarations'] = []
+  for dec in rule.declarations:
+    d['declarations'].append({dec.name: dec.value.as_css()})
+  app['rules'].append(d)
+
+# sort inner declarations
+for rule in app['rules']:
+  rule['declarations'].sort(key=lambda x: x.keys())
+
+# sort selector blocks
+app['rules'].sort(key=ignore_leading_dot)
+
+print_sorted_list(app['rules'])
