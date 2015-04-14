@@ -1,8 +1,6 @@
 #!/usr/bin/env python
 # coding: utf-8
 
-# NOTE TO AUTHOR: remember to run . /data/python/env/bin/activate 
-  
 # 
 #   CSS Knife - sorts your CSS
 #
