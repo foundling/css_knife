@@ -11,10 +11,10 @@ import sys
 import tinycss
 
 def ignore_leading_dot(item):
-    if item['selector'].startswith('.'):
-        return item['selector'][1:]
-    else:
-        return item['selector']
+  if item['selector'].startswith('.'):
+    return item['selector'][1:]
+  else:
+    return item['selector']
 
 
 def style_errors(errors):
