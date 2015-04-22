@@ -10,12 +10,8 @@
   -i    Modify the file in-place.  
 '''
 
-
 import sys
-
 import tinycss
-
-  
 
 def usage():
   usage_string = ''' 
@@ -27,13 +23,11 @@ def usage():
   '''
   print usage_string
 
-
 def ignore_leading_char(item,excluded_chars=".#"):
   if item['selector'][0] in excluded_chars:
     return item['selector'][1:]
   else:
     return item['selector']
-
 
 def style_errors(errors):
   if errors:
