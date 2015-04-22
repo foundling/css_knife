@@ -1,17 +1,9 @@
-    CSS Knife: industrial-strength CSS sorting.
+####CSS Knife
+####Usage: knife.py [-Dhi] file1 file2 file3 ... 
+  
+  -D    Exclude leading non-alphabetic characters from sort comparison. 
 
-    USAGE: knife [ -sdSDonZ ] [ <FILENAME> ]  [ -o <OUTPUT_FILE> ] 
-    HARD DEPENDENCIES: tinycss parsing library
-    When no arguments are passed, the default flag is -S, output stats
+  -h    Help.  Outputs this information.
 
-    -s, sort css selectors
-    -d, sort by declarations
-    -S, outputs stats (errors, duplicates)
-    -D, find duplicate selectors
-    -o, write stdout to a file. cannot be the name of the source file
-    -Z, include leading non-alphabetic characters like '.' and '#' in sort procedure.  
-    This option is positional and must come before a -r or -d flag.  If no -r or -d flag
-    follows the -Z flag, it is ignored.
+  -i    Modify the file in-place.  
 
-    Features To Be Implemented Next:
-    - support for comments
