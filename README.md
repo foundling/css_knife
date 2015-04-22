@@ -1,4 +1,4 @@
-####CSS Knife
+####CSS Knife: a Tool for concatenating, cleaning and sorting CSS files
 
 ````
 Usage: knife.py [-Dhi] file1 file2 file3 ... 
