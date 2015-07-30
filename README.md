@@ -1,4 +1,4 @@
 ####CSS Knife: a tool for sorting CSS files
 
 ````
-Usage: knife.py 
+Usage: knife.py file.css
